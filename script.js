@@ -29,13 +29,16 @@ const gameBoard = (() => {
 const displayXandO = (() => {
     const displayX = (element) => {
         let tempDivDataSet = document.querySelector(`[data-index-n="${element}"]`);
-        let tempText = document.createTextNode(myArray[1].content);
-        if(tempDivDataSet.classList[1]===undefined){
-            tempDivDataSet.classList.add('marked'); 
-            tempDivDataSet.appendChild(tempText)
-            console.log("Entered: " + element);
-            console.log(tempDivDataSet.classList[1]);
-        }
+        let tempText = document.createTextNode(myArray[myArray.length-1].mark);
+        tempDivDataSet.appendChild(tempText);
+        // let tempDivDataSet = document.querySelector(`[data-index-n="${element}"]`);
+        // let tempText = document.createTextNode(myArray[1].content);
+        // if(tempDivDataSet.classList[1]===undefined){
+        //     tempDivDataSet.classList.add('marked'); 
+        //     tempDivDataSet.appendChild(tempText)
+        //     console.log("Entered: " + element);
+        //     console.log(tempDivDataSet.classList[1]);
+        // }
     }
 
     return {displayX};
@@ -65,20 +68,23 @@ function assignPlayers(mark){
 
 function gameLogic(gridBlock){
     //console.log(myArray.hasOwnProperty('content'));
-    console.log(myArray.length)
-    console.log(gridBlock)
     if(myArray.length != 9){
         if(myArray.length === 0){
             const temp = myArrayObj(myPlayers[0].player, myPlayers[0].mark, gridBlock);
             myArray.push(temp);
+            //show the mark on gameBoard
+            console.log("GridBlock = " + gridBlock);
+            displayXandO.displayX(gridBlock);         
         }else{
             //check the past array mark
             if(myArray[myArray.length-1].mark === myPlayers[0].mark){
                 const temp = myArrayObj(myPlayers[1].player, myPlayers[1].mark, gridBlock);
                 myArray.push(temp);
+                displayXandO.displayX(gridBlock);
             }else{
                 const temp = myArrayObj(myPlayers[0].player, myPlayers[0].mark, gridBlock);
                 myArray.push(temp);
+                displayXandO.displayX(gridBlock);
             }
         }
     }//else{
