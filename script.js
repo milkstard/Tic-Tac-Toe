@@ -107,6 +107,8 @@ document.addEventListener('click', element => {
             assignPlayers(element.target.id.toUpperCase());
             console.log(myPlayers);
         }
+    }else if(myPlayers.length===0){
+        alert("PLEASE CHOOSE X or O");
     }
 })
 
