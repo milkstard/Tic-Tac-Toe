@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 50px;
+    border: 2px solid green;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-container > .choosePlayer{
+    flex: 1;
+}
+
+.flex-container > .grid-content{
+    display: grid;
+    padding: 50px;
+    border: 2px solid rgb(45, 27, 237);
+    flex: 1; /*same as 1 1 0 */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+.flex-container > .toShow{
+    display: none;
+}
+
+.grid-content > div{
+    padding: 50px;
+    border: 1px solid black;
+    text-align: center;
+}
