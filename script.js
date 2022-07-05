@@ -73,7 +73,7 @@ function gameLogic(gridBlock){
             myArray.push(temp);
         }else{
             //check the past array mark
-            if(myArray[myArray.length-1].mark === 'X'){
+            if(myArray[myArray.length-1].mark === myPlayers[0].mark){
                 const temp = myArrayObj(myPlayers[1].player, myPlayers[1].mark, gridBlock);
                 myArray.push(temp);
             }else{
