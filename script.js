@@ -52,6 +52,15 @@ const myArrayObj = (player, mark, gridBlock) => {
     return{player, mark, gridBlock};
 }
 
+const gridFilled = (() => {
+    const okFilled = (gridCellBlock) => {
+        const tempDiv = document.querySelector(`[data-index-n="${gridCellBlock}"]`);
+        tempDiv.classList.toggle('okFilled');
+    }
+
+    return {okFilled};
+})();
+
 function assignPlayers(mark){
     if(mark === 'X'){
         const playersAssign1 = players('player1', mark);
@@ -66,24 +75,33 @@ function assignPlayers(mark){
     }
 }
 
-function gameLogic(gridBlock){
+function gameLogic(gridBlock, elementX){
     //console.log(myArray.hasOwnProperty('content'));
+    console.log(elementX.target.classList.contains('okFilled'));
     if(myArray.length != 9){
         if(myArray.length === 0){
             const temp = myArrayObj(myPlayers[0].player, myPlayers[0].mark, gridBlock);
             myArray.push(temp);
+            //add a function that tells the computer its filled
+            gridFilled.okFilled(gridBlock);
             //show the mark on gameBoard
-            console.log("GridBlock = " + gridBlock);
-            displayXandO.displayX(gridBlock);         
+            displayXandO.displayX(gridBlock); 
         }else{
             //check the past array mark
-            if(myArray[myArray.length-1].mark === myPlayers[0].mark){
+            if(myArray[myArray.length-1].mark === myPlayers[0].mark && !(elementX.target.classList.contains('okFilled'))){
                 const temp = myArrayObj(myPlayers[1].player, myPlayers[1].mark, gridBlock);
                 myArray.push(temp);
+                //add a function that tells the computer its filled
+                gridFilled.okFilled(gridBlock);
+                //show the mark on gameBoard
                 displayXandO.displayX(gridBlock);
-            }else{
+                //check now if grid block is filled with winners
+            }else if(myArray[myArray.length-1].mark === myPlayers[1].mark && !(elementX.target.classList.contains('okFilled'))){
                 const temp = myArrayObj(myPlayers[0].player, myPlayers[0].mark, gridBlock);
                 myArray.push(temp);
+                //add a function that tells the computer its filled
+                gridFilled.okFilled(gridBlock);
+                //show the mark on gameBoard
                 displayXandO.displayX(gridBlock);
             }
         }
@@ -98,7 +116,7 @@ function gameLogic(gridBlock){
 
 document.addEventListener('click', element => {
     if(element.target.classList.value==='gameBoardContainer' && myPlayers.length!=0){
-        gameLogic(element.target.dataset.indexN);
+        gameLogic(element.target.dataset.indexN, element);
         //displayXandO.displayX(element.target.dataset.indexN);
     }else if(element.target.id === 'X' || element.target.id === 'O'){
         console.log(window.getComputedStyle(element.target).display)
