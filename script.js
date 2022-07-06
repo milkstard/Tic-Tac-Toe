@@ -1,5 +1,7 @@
-var myArray = [];
-var myPlayers = [];
+let myArray = [];
+let myPlayers = [];
+let filledGridBlockx = [];
+let tempPossibleWinnersCoord = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
 //Note: Rule of Thumb: use module = (()=>{})() if only need one, then
 //factory = ()=>{} if need multiple times
@@ -13,15 +15,6 @@ const gameBoard = (() => {
             tempDiv.dataset.indexN = i;
             gridContent.append(tempDiv);
         }
-        /*const gridContent = document.querySelector('.grid-content');
-        myArray.forEach((element, index) => {
-        let tempDiv = document.createElement('div');
-        tempDiv.classList.add('gameBoardContainer');
-        tempDiv.dataset.indexN = index;
-        //let tempText = document.createTextNode(element.content);
-        //tempDiv.appendChild(tempText);
-        gridContent.append(tempDiv);
-     });*/
     }
     return {displayGameBoard};
  })();
@@ -31,14 +24,6 @@ const displayXandO = (() => {
         let tempDivDataSet = document.querySelector(`[data-index-n="${element}"]`);
         let tempText = document.createTextNode(myArray[myArray.length-1].mark);
         tempDivDataSet.appendChild(tempText);
-        // let tempDivDataSet = document.querySelector(`[data-index-n="${element}"]`);
-        // let tempText = document.createTextNode(myArray[1].content);
-        // if(tempDivDataSet.classList[1]===undefined){
-        //     tempDivDataSet.classList.add('marked'); 
-        //     tempDivDataSet.appendChild(tempText)
-        //     console.log("Entered: " + element);
-        //     console.log(tempDivDataSet.classList[1]);
-        // }
     }
 
     return {displayX};
@@ -61,6 +46,50 @@ const gridFilled = (() => {
 
     return {okFilled};
 })();
+    
+const winnerCheck = (() => {
+    const winner = () => {
+
+        const allX = myArray.filter(e=>{
+                if(e.mark==='X')
+                    return e;//parseInt(e.gridBlock);
+        }) //get objects that has X
+
+        const allXmap = allX.map(e=>{
+                return e.gridBlock;
+        }) //get all x in the objects
+
+        const allO = myArray.filter(e=>{
+                if(e.mark==='O')
+                    return e;//parseInt(e.gridBlock);
+        }) //get objects that has O
+
+        const allOmap = allX.map(e=>{
+                return e.gridBlock;
+        }) //get all o in the objects
+
+        for(let i=0; i<tempPossibleWinnersCoord.length; i++){
+            let ctrX = 0;
+            let ctrO = 0;
+            for(let j=0; j<tempPossibleWinnersCoord[1].length; j++){
+                if(allXmap.includes((tempPossibleWinnersCoord[i][j])).toString())
+                    ctrX++;
+                if(allOmap.includes((tempPossibleWinnersCoord[i][j])).toString())
+                    ctrO++;
+            }
+            if(ctrX >=3 || ctrO >=3){
+                if(ctrX >=3)
+                    return 'Winner X';
+                else
+                    return 'Winner Y'
+            }
+
+        }
+
+        return "NO WINNER"
+    }
+    return {winner};
+})();
 
 function assignPlayers(mark){
     if(mark === 'X'){
@@ -78,32 +107,54 @@ function assignPlayers(mark){
 
 function gameLogic(gridBlock, elementX){
     //console.log(myArray.hasOwnProperty('content'));
-    console.log(elementX.target.classList.contains('okFilled'));
     if(myArray.length != 9){
         if(myArray.length === 0){
             const temp = myArrayObj(myPlayers[0].player, myPlayers[0].mark, gridBlock);
             myArray.push(temp);
             //add a function that tells the computer its filled
-            gridFilled.okFilled(gridBlock, myPlayers[0].mark);
+            gridFilled.okFilled(parseInt(gridBlock), myPlayers[0].mark);
             //show the mark on gameBoard
-            displayXandO.displayX(gridBlock); 
+            displayXandO.displayX(parseInt(gridBlock));
+            //push to array the grid cell
+            filledGridBlockx.push(parseInt(gridBlock));
         }else{
             //check the past array mark
             if(myArray[myArray.length-1].mark === myPlayers[0].mark && !(elementX.target.classList.contains('okFilled'))){
                 const temp = myArrayObj(myPlayers[1].player, myPlayers[1].mark, gridBlock);
                 myArray.push(temp);
                 //add a function that tells the computer its filled
-                gridFilled.okFilled(gridBlock, myPlayers[1].mark);
+                gridFilled.okFilled(parseInt(gridBlock), myPlayers[1].mark);
                 //show the mark on gameBoard
-                displayXandO.displayX(gridBlock);
+                displayXandO.displayX(parseInt(gridBlock));
+                //push to array the grid cell
+                filledGridBlockx.push(parseInt(gridBlock));
                 //check now if grid block is filled with winners
+                let returnWinner = winnerCheck.winner();
+                console.log('The return ' + returnWinner);
+                if(returnWinner >= 0){
+                    console.log(myArray.filter((element)=>{
+                        console.log(typeof(element.gridBlock) + typeof(returnWinner));
+                        element.gridBlock===returnWinner
+                }));
+                }
             }else if(myArray[myArray.length-1].mark === myPlayers[1].mark && !(elementX.target.classList.contains('okFilled'))){
                 const temp = myArrayObj(myPlayers[0].player, myPlayers[0].mark, gridBlock);
                 myArray.push(temp);
                 //add a function that tells the computer its filled
-                gridFilled.okFilled(gridBlock, myPlayers[0].mark);
+                gridFilled.okFilled(parseInt(gridBlock), myPlayers[0].mark);
                 //show the mark on gameBoard
-                displayXandO.displayX(gridBlock);
+                displayXandO.displayX(parseInt(gridBlock));
+                //push to array the grid cell
+                filledGridBlockx.push(parseInt(gridBlock));
+                //check now if grid block is filled with winners
+                let returnWinner = winnerCheck.winner();
+                console.log('The return ' + returnWinner);
+                if(returnWinner >= 0){
+                    console.log(myArray.filter((element)=>{
+                        console.log(typeof(element.gridBlock) + typeof(returnWinner));
+                        element.gridBlock===returnWinner
+                }));
+                }
             }
         }
     }//else{
@@ -112,13 +163,11 @@ function gameLogic(gridBlock, elementX){
     // if(myArray[1].hasOwnProperty('content') === false){
 
     // }
-    console.log(myArray);
 }
 
 document.addEventListener('click', element => {
     if(element.target.classList.value==='gameBoardContainer' && myPlayers.length!=0){
         gameLogic(element.target.dataset.indexN, element);
-        //displayXandO.displayX(element.target.dataset.indexN);
     }else if(element.target.id === 'X' || element.target.id === 'O'){
         console.log(window.getComputedStyle(element.target).display)
         //check the display if none, if not then proceed to block
