@@ -64,29 +64,32 @@ const winnerCheck = (() => {
                     return e;//parseInt(e.gridBlock);
         }) //get objects that has O
 
-        const allOmap = allX.map(e=>{
+        const allOmap = allO.map(e=>{
                 return e.gridBlock;
         }) //get all o in the objects
 
+        console.log(`Omap: ${allOmap} Xmap: ${allXmap}`)
         for(let i=0; i<tempPossibleWinnersCoord.length; i++){
             let ctrX = 0;
             let ctrO = 0;
             for(let j=0; j<tempPossibleWinnersCoord[1].length; j++){
-                if(allXmap.includes((tempPossibleWinnersCoord[i][j])).toString())
+                if(allXmap.includes((tempPossibleWinnersCoord[i][j]).toString())){//still entered even though its false
                     ctrX++;
-                if(allOmap.includes((tempPossibleWinnersCoord[i][j])).toString())
+                }else if(allOmap.includes((tempPossibleWinnersCoord[i][j]).toString())){
                     ctrO++;
+                }
             }
+            console.log(`ctrlX = ${ctrX} ${ctrO}`) //its always ctrX = 3 and ctrY = 3 even though the condition above is false
             if(ctrX >=3 || ctrO >=3){
                 if(ctrX >=3)
                     return 'Winner X';
                 else
-                    return 'Winner Y'
+                    return 'Winner Y';
             }
 
         }
 
-        return "NO WINNER"
+        return "NO WINNER";
     }
     return {winner};
 })();
@@ -117,6 +120,8 @@ function gameLogic(gridBlock, elementX){
             displayXandO.displayX(parseInt(gridBlock));
             //push to array the grid cell
             filledGridBlockx.push(parseInt(gridBlock));
+            let returnWinner = winnerCheck.winner();
+                console.log('The return ' + returnWinner);
         }else{
             //check the past array mark
             if(myArray[myArray.length-1].mark === myPlayers[0].mark && !(elementX.target.classList.contains('okFilled'))){
@@ -157,19 +162,15 @@ function gameLogic(gridBlock, elementX){
                 }
             }
         }
-    }//else{
-        //array is 9 already
-    //}
-    // if(myArray[1].hasOwnProperty('content') === false){
-
-    // }
+    }
 }
 
 document.addEventListener('click', element => {
     if(element.target.classList.value==='gameBoardContainer' && myPlayers.length!=0){
-        gameLogic(element.target.dataset.indexN, element);
+            gameLogic(element.target.dataset.indexN, element);
+            if(myArray.length==9)
+                alert('NO WINNERS ITS A TIE MGA TANga!');
     }else if(element.target.id === 'X' || element.target.id === 'O'){
-        console.log(window.getComputedStyle(element.target).display)
         //check the display if none, if not then proceed to block
         const toShow = document.querySelector(".toShow")
         if(window.getComputedStyle(toShow).display != 'block'){
