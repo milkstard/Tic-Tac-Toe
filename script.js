@@ -49,7 +49,7 @@ const gridFilled = (() => {
 
     return {okFilled};
 })();
-    
+
 const winnerCheck = (() => {
     const winner = () => {
 
@@ -96,6 +96,24 @@ const winnerCheck = (() => {
     }
     return {winner};
 })();
+
+function toRestart(){
+    let toShow = document.querySelector('.toShow');
+        toShow.style.display = "none";
+        toShow.textContent = "";
+        let toHide = document.querySelector('.toHide');
+        toHide.style.display = "block";
+        myArray = [];
+        myPlayers = [];
+        filledGridBlockx = [];
+        let gridContent = document.querySelector('.grid-content');
+        if(gridContent.hasChildNodes()){
+            while(gridContent.firstChild){
+                gridContent.removeChild(gridContent.firstChild)
+            }
+        }
+        gameBoard.displayGameBoard();
+}
 
 function assignPlayers(mark){
     if(mark === 'X'){
@@ -169,6 +187,7 @@ function gameLogic(gridBlock, elementX){
 }
 
 document.addEventListener('click', element => {
+    
     if(element.target.classList.value==='gameBoardContainer' && myPlayers.length!=0){
             gameLogic(element.target.dataset.indexN, element);
             if(myArray.length==9)
@@ -180,7 +199,7 @@ document.addEventListener('click', element => {
             const tempP = document.createElement('p')
             const toHide = document.querySelector('.toHide');
             toHide.style.display = "none";
-            tempP.textContent = `YOU ARE ${element.target.id.toUpperCase()}`;
+            tempP.textContent = `YOU ARE PLAYER : ${element.target.id.toUpperCase()}`;
             toShow.append(tempP);
             toShow.style.display = "block";
             console.log(myPlayers);
@@ -189,6 +208,8 @@ document.addEventListener('click', element => {
         }
     }else if(element.target.classList.value === 'gameBoardContainer' && myPlayers.length===0){
         alert("PLEASE CHOOSE X or O");
+    }else if(element.target.id === 'gameRestart'){
+        toRestart();
     }
 })
 
