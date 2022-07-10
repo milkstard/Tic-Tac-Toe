@@ -1,17 +1,113 @@
+@font-face {
+    font-family: Games;
+    src: url(./fonts/Games.ttf);
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Games;
+    font-size: 1rem;
 }
 
-.flex-container{
+body{
+    background-color: rgb(36, 5, 99);
+}
+/*.flex-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}*/
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    grid-template-rows: 0.5fr 2fr;
+    /*padding: 8em;*/
+}
+
+.gameBoard-area > .toShow{
+    display: none;
+}
+
+.title-area{
+    grid-column: 1 / span 2;
+    text-align: center;
+    margin: auto;
+    font-size: 5rem
+}
+
+.button-area {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    padding-top: 5em;
+}
+
+.button-area > div{
+    padding: 0.5em;
+}
+
+button{
+    text-align: center;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 20px;
+    font-size: 1.5rem;
+}
+
+.button-toAdd-padding{
+    margin-right: 35px;
+}
+
+.text-toShow{
+    text-align: center;
+}
+
+.result{
+    text-align: center;
+}
+
+.toShow{
+    display: none;
+}
+
+.gameBoard-area > .grid-content{
+    display: grid;
+    padding: 4em;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.grid-content > .gameBoardContainer{
+    /*padding: 70px;*/
+    height: 200px;
+    border: 3px solid rgb(166, 22, 22);
+    text-align: center;
+}
+
+.gameBoardContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameBoardContainer > p{
+    font-size: 3.5rem;
+    color: white;
+}
+/*.flex-container{
+    display: flex;
+    flex-direction: row;
     row-gap: 10px;
-    padding: 50px;
     border: 2px solid green;
     justify-content: center;
     align-items: center;
+    padding: 10em;
 }
 
 .flex-container > .choosePlayer{
@@ -21,9 +117,9 @@
 .flex-container > .grid-content{
     display: grid;
     padding: 50px;
-    border: 2px solid rgb(45, 27, 237);
-    flex: 1; /*same as 1 1 0 */
-    grid-template-columns: 1fr 1fr 1fr;
+    border: 2px solid rgb(45, 27, 237);*/
+    /* flex: 1;same as 1 1 0 */
+    /*grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 5px;
 }
@@ -41,4 +137,4 @@
 .gameBoardContainer{
     font-size: 3rem;
     padding: 10em;
-}
+}*/

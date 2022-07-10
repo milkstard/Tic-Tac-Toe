@@ -9,7 +9,25 @@
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
-    <div class="flex-container">
+    <div class="grid-container">
+        <div class="title-area">TIC - TAC - TOE</div>
+        <div class="button-area">
+            <div class="button-toAdd-padding"><button id="X">X</button></div>
+            <div class="button-toAdd-padding"><button id="O">O</button></div>
+            <div><button id="gameRestart">RESTART</button></div>
+        </div>
+        <div class="gameBoard-area">
+            <div class="text-toShow">
+                <div class="toHide">NO MARK SELECTED: _____</div>
+                <div class="toShow"></div> <!--Just show what mark you are if X or O-->
+            </div>
+            <div class="grid-content"></div>
+            <div class="result">
+                <p>RESULT:_____</p>
+            </div>
+        </div>
+    </div>
+    <!--<div class="flex-container">
         <div class="choosePlayer">
             <button id="X">X</button>
             <button id="O">O</button>
@@ -17,6 +35,6 @@
         <div class="toShow"></div>
         <div class="grid-content">
         </div>
-    </div>
+    </div>-->
 </body>
 </html>

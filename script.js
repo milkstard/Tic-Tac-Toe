@@ -22,8 +22,11 @@ const gameBoard = (() => {
 const displayXandO = (() => {
     const displayX = (element) => {
         let tempDivDataSet = document.querySelector(`[data-index-n="${element}"]`);
+        let tempP = document.createElement('p');
         let tempText = document.createTextNode(myArray[myArray.length-1].mark);
-        tempDivDataSet.appendChild(tempText);
+        tempP.appendChild(tempText);
+        tempDivDataSet.append(tempP);
+        //tempDivDataSet.appendChild(tempText);
     }
 
     return {displayX};
@@ -84,7 +87,7 @@ const winnerCheck = (() => {
                 if(ctrX >=3)
                     return 'Winner X';
                 else
-                    return 'Winner Y';
+                    return 'Winner O';
             }
 
         }
@@ -175,6 +178,8 @@ document.addEventListener('click', element => {
         const toShow = document.querySelector(".toShow")
         if(window.getComputedStyle(toShow).display != 'block'){
             const tempP = document.createElement('p')
+            const toHide = document.querySelector('.toHide');
+            toHide.style.display = "none";
             tempP.textContent = `YOU ARE ${element.target.id.toUpperCase()}`;
             toShow.append(tempP);
             toShow.style.display = "block";
