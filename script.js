@@ -2,7 +2,7 @@ let myArray = [];
 let myPlayers = [];
 let filledGridBlockx = [];
 let tempPossibleWinnersCoord = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-
+let playerWinner = false;
 //Note: Rule of Thumb: use module = (()=>{})() if only need one, then
 //factory = ()=>{} if need multiple times
 
@@ -195,8 +195,46 @@ document.addEventListener('click', element => {
     
     if(element.target.classList.value==='gameBoardContainer' && myPlayers.length!=0){
             gameLogic(element.target.dataset.indexN, element);
-            if(myArray.length==9)
-                alert('NO WINNERS ITS A TIE MGA TANga!');
+            if(myArray.length==9 && playerWinner === false){
+                //alert('NO WINNERS ITS A TIE MGA TANga!');
+                let modalContainer = document.querySelector('.modal-2');
+                modalContainer.style.display = "flex";
+                let okayButton = document.querySelector('.ok-button-2');
+                let closeButton = document.querySelector('.close-button-2');
+                let restartButton = document.querySelector('.restart-button');
+
+                okayButton.addEventListener('click',()=>{
+                    modalContainer.style.display = "none";
+                });
+                closeButton.addEventListener('click',()=>{
+                    modalContainer.style.display = "none";
+                });
+                restartButton.addEventListener('click',()=>{
+                    toRestart();
+                    modalContainer.style.display = "none";
+                });
+
+                okayButton.addEventListener('mouseover',()=>{
+                    okayButton.style.backgroundColor = "rgb(29, 51, 117)";
+                });
+                closeButton.addEventListener('mouseover',()=>{
+                    closeButton.style.backgroundColor = "rgb(69, 65, 65)";
+                });
+                restartButton.addEventListener('mouseover',()=>{
+                    restartButton.style.backgroundColor = "rgb(29, 51, 117)";
+                });
+
+                okayButton.addEventListener('mouseleave',()=>{
+                    okayButton.style.backgroundColor = "royalblue";
+                });
+                closeButton.addEventListener('mouseleave',()=>{
+                    closeButton.style.backgroundColor = "#eee";
+                });
+                restartButton.addEventListener('mouseleave',()=>{
+                    restartButton.style.backgroundColor = "royalblue";
+                });
+
+            }
     }else if(element.target.id === 'X' || element.target.id === 'O'){
         //check the display if none, if not then proceed to block
         const toShow = document.querySelector(".toShow")
@@ -212,7 +250,7 @@ document.addEventListener('click', element => {
             console.log(myPlayers);
         }
     }else if(element.target.classList.value === 'gameBoardContainer' && myPlayers.length===0){
-        let modalContainer = document.querySelector('.modal-container');
+        let modalContainer = document.querySelector('.modal-1');
         modalContainer.style.display = "flex";
         let okayButton = document.querySelector('.ok-button');
         let closeButton = document.querySelector('.close-button');
