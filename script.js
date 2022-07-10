@@ -207,7 +207,32 @@ document.addEventListener('click', element => {
             console.log(myPlayers);
         }
     }else if(element.target.classList.value === 'gameBoardContainer' && myPlayers.length===0){
-        alert("PLEASE CHOOSE X or O");
+        let modalContainer = document.querySelector('.modal-container');
+        modalContainer.style.display = "flex";
+        let okayButton = document.querySelector('.ok-button');
+        let closeButton = document.querySelector('.close-button');
+
+        okayButton.addEventListener('click',()=>{
+            modalContainer.style.display = "none";
+        });
+        closeButton.addEventListener('click',()=>{
+            modalContainer.style.display = "none";
+        });
+
+        okayButton.addEventListener('mouseover',()=>{
+            okayButton.style.backgroundColor = "rgb(29, 51, 117)";
+        });
+        closeButton.addEventListener('mouseover',()=>{
+            closeButton.style.backgroundColor = "rgb(69, 65, 65)";
+        });
+
+        okayButton.addEventListener('mouseleave',()=>{
+            okayButton.style.backgroundColor = "royalblue";
+        });
+        closeButton.addEventListener('mouseleave',()=>{
+            closeButton.style.backgroundColor = "#eee";
+        });
+
     }else if(element.target.id === 'gameRestart'){
         toRestart();
     }
