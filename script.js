@@ -26,7 +26,12 @@ const displayXandO = (() => {
         let tempText = document.createTextNode(myArray[myArray.length-1].mark);
         tempP.appendChild(tempText);
         tempDivDataSet.append(tempP);
-        //tempDivDataSet.appendChild(tempText);
+        //change color of mark
+        if(myArray[myArray.length-1].mark === 'X'){
+            tempP.style.color = "red"
+        }else{
+            tempP.style.color = "blue"
+        }
     }
 
     return {displayX};
