@@ -14,19 +14,11 @@
 body{
     background-color: rgb(226, 226, 226);
 }
-/*.flex-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}*/
 
 .grid-container{
     display: grid;
     grid-template-columns: 0.5fr 2fr;
     grid-template-rows: 0.5fr 2fr;
-    /*padding: 8em;*/
 }
 
 .gameBoard-area > .toShow{
@@ -102,7 +94,6 @@ button{
 }
 
 .grid-content > .gameBoardContainer{
-    /*padding: 70px;*/
     height: 200px;
     border-right: 8px solid rgb(166, 22, 22);
     border-bottom: 8px solid rgb(166, 22, 22);
@@ -141,11 +132,7 @@ button{
     position: absolute;
 }
 
-.modal-1{
-    display: none;
-}
-
-.modal-2{
+.modal-1, .modal-2, .modal-3{
     display: none;
 }
 
@@ -158,23 +145,35 @@ button{
     gap: 16px;
     padding: 16px;
 }
-  
-  .icon {
+
+.container-modal-3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.icon > img{
+    width: 50px;
+    height: 50px;
+}
+
+.icon {
     color: royalblue;
     font-size: 26px;
     font-weight: 700;
     background: lavender;
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     /* this keeps the icon from getting smashed by the text */
     flex-shrink: 0;
-  }
+}
   
-  .close-button {
+.close-button {
     background: #eee;
     border-radius: 50%;
     color: #888;
@@ -185,74 +184,36 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
   
-  button {
+button {
     font-family: Arial, Helvetica, sans-serif;
     padding: 8px 16px;
     border-radius: 8px;
-  }
+}
   
- .ok-button{
+.ok-button{
     background: royalblue;
     border: 1px solid royalblue;
     color: white;
-  }
+}
 
-  .restart-button{
+.restart-button{
     background: royalblue;
     border: 1px solid royalblue;
     color: white;
-  }
+}
 
-  .header {
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 8px;
-  }
+}
   
-  .text {
+.text {
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 16px;
-  }
-/*.flex-container{
-    display: flex;
-    flex-direction: row;
-    row-gap: 10px;
-    border: 2px solid green;
-    justify-content: center;
-    align-items: center;
-    padding: 10em;
 }
-
-.flex-container > .choosePlayer{
-    flex: 1;
-}
-
-.flex-container > .grid-content{
-    display: grid;
-    padding: 50px;
-    border: 2px solid rgb(45, 27, 237);*/
-    /* flex: 1;same as 1 1 0 */
-    /*grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 5px;
-}
-
-.flex-container > .toShow{
-    display: none;
-}
-
-.grid-content > div{
-    padding: 50px;
-    border: 1px solid black;
-    text-align: center;
-}
-
-.gameBoardContainer{
-    font-size: 3rem;
-    padding: 10em;
-}*/

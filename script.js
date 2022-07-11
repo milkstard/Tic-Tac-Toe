@@ -76,7 +76,6 @@ const winnerCheck = (() => {
                 return e.gridBlock;
         }) //get all o in the objects
 
-        console.log(`Omap: ${allOmap} Xmap: ${allXmap}`)
         for(let i=0; i<tempPossibleWinnersCoord.length; i++){
             let ctrX = 0;
             let ctrO = 0;
@@ -87,12 +86,11 @@ const winnerCheck = (() => {
                     ctrO++;
                 }
             }
-            console.log(`ctrlX = ${ctrX} ${ctrO}`) //its always ctrX = 3 and ctrY = 3 even though the condition above is false
             if(ctrX >=3 || ctrO >=3){
                 if(ctrX >=3)
-                    return 'Winner X';
+                    return 'X';
                 else
-                    return 'Winner O';
+                    return 'O';
             }
 
         }
@@ -117,6 +115,7 @@ function toRestart(){
                 gridContent.removeChild(gridContent.firstChild)
             }
         }
+        playerWinner = false;
         gameBoard.displayGameBoard();
 }
 
@@ -134,6 +133,111 @@ function assignPlayers(mark){
     }
 }
 
+const modalArea = (()=>{
+    const modalWinner = (returnWinner)=>{
+            let modalContainer = document.querySelector('.modal-3');
+            modalContainer.style.display = "flex";
+            let tempText = document.querySelector('.text-3');
+            tempText.textContent = (`Congrats! Player ${returnWinner} you won!`);
+            let okayButton = document.querySelector('.ok-button-3');
+            let restartButton = document.querySelector('.restart-button-3');
+            okayButton.addEventListener('click',()=>{
+                modalContainer.style.display = "none";
+            });
+            restartButton.addEventListener('click',()=>{
+                toRestart();
+                modalContainer.style.display = "none";
+            });
+
+            okayButton.addEventListener('mouseover',()=>{
+                okayButton.style.backgroundColor = "rgb(29, 51, 117)";
+            });
+            restartButton.addEventListener('mouseover',()=>{
+                restartButton.style.backgroundColor = "rgb(29, 51, 117)";
+            });
+
+            okayButton.addEventListener('mouseleave',()=>{
+                okayButton.style.backgroundColor = "royalblue";
+            });
+            restartButton.addEventListener('mouseleave',()=>{
+                restartButton.style.backgroundColor = "royalblue";
+            });
+
+            playerWinner = true;
+    };
+
+    const modalTie = ()=>{
+
+            let modalContainer = document.querySelector('.modal-2');
+            modalContainer.style.display = "flex";
+            let okayButton = document.querySelector('.ok-button-2');
+            let closeButton = document.querySelector('.close-button-2');
+            let restartButton = document.querySelector('.restart-button');
+
+            okayButton.addEventListener('click',()=>{
+                modalContainer.style.display = "none";
+            });
+            closeButton.addEventListener('click',()=>{
+                modalContainer.style.display = "none";
+            });
+            restartButton.addEventListener('click',()=>{
+                toRestart();
+                modalContainer.style.display = "none";
+            });
+
+            okayButton.addEventListener('mouseover',()=>{
+                okayButton.style.backgroundColor = "rgb(29, 51, 117)";
+            });
+            closeButton.addEventListener('mouseover',()=>{
+                closeButton.style.backgroundColor = "rgb(69, 65, 65)";
+            });
+            restartButton.addEventListener('mouseover',()=>{
+                restartButton.style.backgroundColor = "rgb(29, 51, 117)";
+            });
+
+            okayButton.addEventListener('mouseleave',()=>{
+                okayButton.style.backgroundColor = "royalblue";
+            });
+            closeButton.addEventListener('mouseleave',()=>{
+                closeButton.style.backgroundColor = "#eee";
+            });
+            restartButton.addEventListener('mouseleave',()=>{
+                restartButton.style.backgroundColor = "royalblue";
+            });
+
+    };
+
+    const modalNoPlayer = () =>{
+            let modalContainer = document.querySelector('.modal-1');
+            modalContainer.style.display = "flex";
+            let okayButton = document.querySelector('.ok-button');
+            let closeButton = document.querySelector('.close-button');
+
+            okayButton.addEventListener('click',()=>{
+                modalContainer.style.display = "none";
+            });
+            closeButton.addEventListener('click',()=>{
+                modalContainer.style.display = "none";
+            });
+
+            okayButton.addEventListener('mouseover',()=>{
+                okayButton.style.backgroundColor = "rgb(29, 51, 117)";
+            });
+            closeButton.addEventListener('mouseover',()=>{
+                closeButton.style.backgroundColor = "rgb(69, 65, 65)";
+            });
+
+            okayButton.addEventListener('mouseleave',()=>{
+                okayButton.style.backgroundColor = "royalblue";
+            });
+            closeButton.addEventListener('mouseleave',()=>{
+                closeButton.style.backgroundColor = "#eee";
+            });
+    };
+
+    return {modalWinner, modalTie, modalNoPlayer};
+})();
+
 function gameLogic(gridBlock, elementX){
     //console.log(myArray.hasOwnProperty('content'));
     if(myArray.length != 9){
@@ -146,8 +250,6 @@ function gameLogic(gridBlock, elementX){
             displayXandO.displayX(parseInt(gridBlock));
             //push to array the grid cell
             filledGridBlockx.push(parseInt(gridBlock));
-            let returnWinner = winnerCheck.winner();
-                console.log('The return ' + returnWinner);
         }else{
             //check the past array mark
             if(myArray[myArray.length-1].mark === myPlayers[0].mark && !(elementX.target.classList.contains('okFilled'))){
@@ -161,13 +263,8 @@ function gameLogic(gridBlock, elementX){
                 filledGridBlockx.push(parseInt(gridBlock));
                 //check now if grid block is filled with winners
                 let returnWinner = winnerCheck.winner();
-                console.log('The return ' + returnWinner);
-                if(returnWinner >= 0){
-                    console.log(myArray.filter((element)=>{
-                        console.log(typeof(element.gridBlock) + typeof(returnWinner));
-                        element.gridBlock===returnWinner
-                }));
-                }
+                if(returnWinner === 'X' || returnWinner === 'O')
+                    modalArea.modalWinner(returnWinner);
             }else if(myArray[myArray.length-1].mark === myPlayers[1].mark && !(elementX.target.classList.contains('okFilled'))){
                 const temp = myArrayObj(myPlayers[0].player, myPlayers[0].mark, gridBlock);
                 myArray.push(temp);
@@ -179,13 +276,8 @@ function gameLogic(gridBlock, elementX){
                 filledGridBlockx.push(parseInt(gridBlock));
                 //check now if grid block is filled with winners
                 let returnWinner = winnerCheck.winner();
-                console.log('The return ' + returnWinner);
-                if(returnWinner >= 0){
-                    console.log(myArray.filter((element)=>{
-                        console.log(typeof(element.gridBlock) + typeof(returnWinner));
-                        element.gridBlock===returnWinner
-                }));
-                }
+                if(returnWinner === 'X' || returnWinner === 'O')
+                    modalArea.modalWinner(returnWinner);
             }
         }
     }
@@ -194,47 +286,11 @@ function gameLogic(gridBlock, elementX){
 document.addEventListener('click', element => {
     
     if(element.target.classList.value==='gameBoardContainer' && myPlayers.length!=0){
-            gameLogic(element.target.dataset.indexN, element);
-            if(myArray.length==9 && playerWinner === false){
-                //alert('NO WINNERS ITS A TIE MGA TANga!');
-                let modalContainer = document.querySelector('.modal-2');
-                modalContainer.style.display = "flex";
-                let okayButton = document.querySelector('.ok-button-2');
-                let closeButton = document.querySelector('.close-button-2');
-                let restartButton = document.querySelector('.restart-button');
+            if(myArray.length!=9 && playerWinner === false)
+                gameLogic(element.target.dataset.indexN, element);
 
-                okayButton.addEventListener('click',()=>{
-                    modalContainer.style.display = "none";
-                });
-                closeButton.addEventListener('click',()=>{
-                    modalContainer.style.display = "none";
-                });
-                restartButton.addEventListener('click',()=>{
-                    toRestart();
-                    modalContainer.style.display = "none";
-                });
-
-                okayButton.addEventListener('mouseover',()=>{
-                    okayButton.style.backgroundColor = "rgb(29, 51, 117)";
-                });
-                closeButton.addEventListener('mouseover',()=>{
-                    closeButton.style.backgroundColor = "rgb(69, 65, 65)";
-                });
-                restartButton.addEventListener('mouseover',()=>{
-                    restartButton.style.backgroundColor = "rgb(29, 51, 117)";
-                });
-
-                okayButton.addEventListener('mouseleave',()=>{
-                    okayButton.style.backgroundColor = "royalblue";
-                });
-                closeButton.addEventListener('mouseleave',()=>{
-                    closeButton.style.backgroundColor = "#eee";
-                });
-                restartButton.addEventListener('mouseleave',()=>{
-                    restartButton.style.backgroundColor = "royalblue";
-                });
-
-            }
+            if(myArray.length==9 && playerWinner === false)
+                modalArea.modalTie();
     }else if(element.target.id === 'X' || element.target.id === 'O'){
         //check the display if none, if not then proceed to block
         const toShow = document.querySelector(".toShow")
@@ -250,32 +306,7 @@ document.addEventListener('click', element => {
             console.log(myPlayers);
         }
     }else if(element.target.classList.value === 'gameBoardContainer' && myPlayers.length===0){
-        let modalContainer = document.querySelector('.modal-1');
-        modalContainer.style.display = "flex";
-        let okayButton = document.querySelector('.ok-button');
-        let closeButton = document.querySelector('.close-button');
-
-        okayButton.addEventListener('click',()=>{
-            modalContainer.style.display = "none";
-        });
-        closeButton.addEventListener('click',()=>{
-            modalContainer.style.display = "none";
-        });
-
-        okayButton.addEventListener('mouseover',()=>{
-            okayButton.style.backgroundColor = "rgb(29, 51, 117)";
-        });
-        closeButton.addEventListener('mouseover',()=>{
-            closeButton.style.backgroundColor = "rgb(69, 65, 65)";
-        });
-
-        okayButton.addEventListener('mouseleave',()=>{
-            okayButton.style.backgroundColor = "royalblue";
-        });
-        closeButton.addEventListener('mouseleave',()=>{
-            closeButton.style.backgroundColor = "#eee";
-        });
-
+        modalArea.modalNoPlayer();
     }else if(element.target.id === 'gameRestart'){
         toRestart();
     }
