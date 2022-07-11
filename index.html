@@ -9,45 +9,61 @@
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
+    <div class="modal-container modal-1">  
+        <div class="modal">
+            <div class="icon">!</div>
+            <div class="container">
+              <div class="header">Select a player mark
+                <div class="close-button">✖</div>
+              </div>
+              <div class="text">You did not select a player mark. Please select X|O to start playing.</div>
+              <button class="ok-button">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-container modal-2">  
+        <div class="modal">
+            <div class="icon">!</div>
+            <div class="container">
+              <div class="header">ITS A TIE
+                <div class="close-button close-button-2">✖</div>
+              </div>
+              <div class="text">GRID is full and no player had marked 3 in a row, column nor diagonally.</div>
+              <button class="ok-button ok-button-2">OK</button>
+              <button class="restart-button">RESTART</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-container modal-3">  
+        <div class="modal">
+            <div class="icon"><img src="./img/Sieger-coloured.svg" alt="winner-logo"></div>
+            <div class="container container-modal-3">
+              <div class="header">WINNER OF THIS ROUND</div>
+              <div class="text text-3"></div>
+              <div>
+                <button class="ok-button ok-button-3">OK</button>
+                <button class="restart-button restart-button-3">RESTART</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-4">
+        <div class="modal-4-p">
+            <p>TIC TAC TOE</p>
+        </div>
+        <div>
+            <form action="#" class="form">
+                <div>
+                    <input type="text" id="playerName" name="playerName">
+                    <label for="playerName" id="labelName">ENTER YOUR NICKNAME</label>
+                </div>
+                <div>
+                    <input type="submit" id="formSubmit" value="START">
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="grid-container">
-        <div class="modal-container modal-1">  
-            <div class="modal">
-                <div class="icon">!</div>
-                <div class="container">
-                  <div class="header">Select a player mark
-                    <div class="close-button">✖</div>
-                  </div>
-                  <div class="text">You did not select a player mark. Please select X|O to start playing.</div>
-                  <button class="ok-button">OK</button>
-                </div>
-            </div>
-        </div>
-        <div class="modal-container modal-2">  
-            <div class="modal">
-                <div class="icon">!</div>
-                <div class="container">
-                  <div class="header">ITS A TIE
-                    <div class="close-button close-button-2">✖</div>
-                  </div>
-                  <div class="text">GRID is full and no player had marked 3 in a row, column nor diagonally.</div>
-                  <button class="ok-button ok-button-2">OK</button>
-                  <button class="restart-button">RESTART</button>
-                </div>
-            </div>
-        </div>
-        <div class="modal-container modal-3">  
-            <div class="modal">
-                <div class="icon"><img src="./img/Sieger-coloured.svg" alt="winner-logo"></div>
-                <div class="container container-modal-3">
-                  <div class="header">WINNER OF THIS ROUND</div>
-                  <div class="text text-3"></div>
-                  <div>
-                    <button class="ok-button ok-button-3">OK</button>
-                    <button class="restart-button restart-button-3">RESTART</button>
-                  </div>
-                </div>
-            </div>
-        </div>
         <div class="title-area">TIC - TAC - TOE</div>
         <div class="button-area">
             <div class="button-toAdd-padding"><button  class="button" id="X">X</button></div>

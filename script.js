@@ -314,3 +314,21 @@ document.addEventListener('click', element => {
 
 //start
 gameBoard.displayGameBoard();
+
+
+const buttonSubmitName = document.querySelector('input[type="submit"');
+const form = document.querySelector('.form')
+//to get input data
+function getDataForm(e){
+    //e.preventDefault();
+    if(form.checkValidity()){
+        var formData = new FormData(form);
+        console.log("OSKOSD");
+        console.log(formData.get('playerName'));
+        //addBookToLibrary(formData.get('book'),formData.get('author'),formData.get('pages'),form[3].checked ? true:false);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    buttonSubmitName.addEventListener('click', getDataForm, false);
+}, false);
