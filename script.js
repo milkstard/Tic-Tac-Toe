@@ -10,6 +10,32 @@ const form = document.querySelector('.form');
 //Note: Rule of Thumb: use module = (()=>{})() if only need one, then
 //factory = ()=>{} if need multiple times
 
+function showMainContent(){
+    const modal4 = document.querySelector('.modal-4');
+    const tempGridCont = document.querySelector('.grid-container');
+    modal4.style.display = "none";
+    tempGridCont.style.display = "grid";
+    console.log(player1)
+    console.log(player2)
+}
+//to get input data
+function getDataForm(e){
+    e.preventDefault();
+    if(form.checkValidity()){
+        var formData = new FormData(form);
+        if(formData.get('playerName-1').length===0)
+            player1 = "";
+        if(formData.get('playerName-2').length===0)
+            player2 = "";
+        if(formData.get('playerName-1').length!=0)
+            player1 = formData.get('playerName-1');
+        if(formData.get('playerName-2').length!=0)
+            player2 = formData.get('playerName-2');
+        showMainContent();;
+        //addBookToLibrary(formData.get('book'),formData.get('author'),formData.get('pages'),form[3].checked ? true:false);
+    }
+}
+
 const gameBoard = (() => {
     const displayGameBoard = () => {
         const gridContent = document.querySelector('.grid-content');
@@ -306,11 +332,12 @@ document.addEventListener('click', element => {
             const tempP = document.createElement('p')
             const toHide = document.querySelector('.toHide');
             toHide.style.display = "none";
-            tempP.textContent = `YOU ARE PLAYER : ${element.target.id.toUpperCase()}`;
+            //tempP.textContent = `YOU ARE PLAYER : ${element.target.id.toUpperCase()}`;
             toShow.append(tempP);
             toShow.style.display = "block";
             console.log(myPlayers);
             assignPlayers(element.target.id.toUpperCase());
+            tempP.textContent = `${player1}: ${myPlayers[0].mark} vs ${player2}: ${myPlayers[1].mark}`;
             console.log(myPlayers);
         }
     }else if(element.target.classList.value === 'gameBoardContainer' && myPlayers.length===0){
@@ -320,35 +347,14 @@ document.addEventListener('click', element => {
     }
 })
 
-//start
-gameBoard.displayGameBoard();
-
-function showMainContent(){
-    const modal4 = document.querySelector('.modal-4');
-    const tempGridCont = document.querySelector('.grid-container');
-    modal4.style.display = "none";
-    tempGridCont.style.display = "grid";
-}
-//to get input data
-function getDataForm(e){
-    //e.preventDefault();
-    if(form.checkValidity()){
-        var formData = new FormData(form);
-        console.log("sdasd")
-        if(formData.get('playerName-1').length===0)
-            player1 = "";
-        if(formData.get('playerName-2').length===0)
-            player2 = "";
-        if(formData.get('playerName-1').length!=0)
-            player1 = formData.get('playerName-1');
-        if(formData.get('playerName-2').length!=0)
-            player2 = formData.get('playerName-2');
-        showMainContent();;
-        //addBookToLibrary(formData.get('book'),formData.get('author'),formData.get('pages'),form[3].checked ? true:false);
-    }
-}
-// const gridContainer = document.querySelector('.grid-container');
-// gridContainer.stlye.display = "grid";
 document.addEventListener('DOMContentLoaded', function(){
     buttonSubmitName.addEventListener('click', getDataForm, false);
 }, false);
+
+//start
+gameBoard.displayGameBoard();
+
+
+// const gridContainer = document.querySelector('.grid-container');
+// gridContainer.stlye.display = "grid";
+
