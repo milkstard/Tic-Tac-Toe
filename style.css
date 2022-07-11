@@ -260,7 +260,7 @@ form > div {
     gap: 10px;
 }
 
-#playerName{
+#playerName-1, #playerName-2{
     padding: 1em;
     border: 5px solid rgb(49, 35, 35);
     border-radius: 20px;

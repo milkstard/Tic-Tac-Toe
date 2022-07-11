@@ -3,6 +3,10 @@ let myPlayers = [];
 let filledGridBlockx = [];
 let tempPossibleWinnersCoord = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 let playerWinner = false;
+let player1 = "";
+let player2 = "";
+const buttonSubmitName = document.querySelector('input[type="submit"');
+const form = document.querySelector('.form');
 //Note: Rule of Thumb: use module = (()=>{})() if only need one, then
 //factory = ()=>{} if need multiple times
 
@@ -116,18 +120,22 @@ function toRestart(){
             }
         }
         playerWinner = false;
+     player1 = "";
+     player2 = "";
+     const modal4 = document.querySelector('.modal-4');
+     modal4.style.display = "flex"; 
         gameBoard.displayGameBoard();
 }
 
 function assignPlayers(mark){
     if(mark === 'X'){
-        const playersAssign1 = players('player1', mark);
-        const playersAssign2 = players('player2', "O");
+        const playersAssign1 = players(player1, mark);
+        const playersAssign2 = players(player2, "O");
         myPlayers.push(playersAssign1);
         myPlayers.push(playersAssign2);
     }else{
-        const playersAssign1 = players('player1', mark);
-        const playersAssign2 = players('player2', "X");
+        const playersAssign1 = players(player1, mark);
+        const playersAssign2 = players(player2, "X");
         myPlayers.push(playersAssign1);
         myPlayers.push(playersAssign2);
     }
@@ -315,20 +323,32 @@ document.addEventListener('click', element => {
 //start
 gameBoard.displayGameBoard();
 
-
-const buttonSubmitName = document.querySelector('input[type="submit"');
-const form = document.querySelector('.form')
+function showMainContent(){
+    const modal4 = document.querySelector('.modal-4');
+    const tempGridCont = document.querySelector('.grid-container');
+    modal4.style.display = "none";
+    tempGridCont.style.display = "grid";
+}
 //to get input data
 function getDataForm(e){
     //e.preventDefault();
     if(form.checkValidity()){
         var formData = new FormData(form);
-        console.log("OSKOSD");
-        console.log(formData.get('playerName'));
+        console.log("sdasd")
+        if(formData.get('playerName-1').length===0)
+            player1 = "";
+        if(formData.get('playerName-2').length===0)
+            player2 = "";
+        if(formData.get('playerName-1').length!=0)
+            player1 = formData.get('playerName-1');
+        if(formData.get('playerName-2').length!=0)
+            player2 = formData.get('playerName-2');
+        showMainContent();;
         //addBookToLibrary(formData.get('book'),formData.get('author'),formData.get('pages'),form[3].checked ? true:false);
     }
 }
-
+// const gridContainer = document.querySelector('.grid-container');
+// gridContainer.stlye.display = "grid";
 document.addEventListener('DOMContentLoaded', function(){
     buttonSubmitName.addEventListener('click', getDataForm, false);
 }, false);
